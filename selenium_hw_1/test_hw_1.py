@@ -1,3 +1,5 @@
+import os
+
 import pytest
 from datetime import datetime
 
@@ -8,6 +10,12 @@ class TestHW1:
                                                  ("https://www.google.com/", "Google")])
     def test_websites_chrome(self, driver, url, page_title):
         driver.get(url)
-        assert page_title in driver.title
+        title_actual = driver.title
+        title_expected = page_title
+        error_message = f"Expected title: {title_expected}, but actual title: {title_actual}"
+        assert page_title in driver.title, error_message
+        screenshot_dir = "screenshots"
         timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        driver.save_screenshot(f"test_{page_title}_{timestamp}.png")
+        screenshot_path = os.path.join(screenshot_dir, f"test_{page_title}_{timestamp}.png")
+        driver.save_screenshot(screenshot_path)
+        driver.quit()
