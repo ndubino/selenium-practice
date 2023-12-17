@@ -7,8 +7,6 @@ class TestSelenium:
 
         # act
         current_url = driver.current_url
-        page_tittle = driver.title
-        ...
 
         # assert
         assert "python" in current_url
